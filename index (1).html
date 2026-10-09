@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ELECAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a14;--card:#0e1528;--ln:#1c2a4a;--tx:#e8eeff;--mut:#8b9abf;--cy:#2dd4ff;--am:#fbbf24;--rd:#f87171;--gn:#34d399;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit;cursor:pointer}input,select{width:100%;background:#050810;border:1px solid var(--ln);color:var(--tx);padding:8px;border-radius:8px;font:inherit}
+label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}
+.btn{background:var(--cy);color:#001018;border:0;border-radius:8px;padding:9px 16px;font-weight:700}.ghost{background:none;color:var(--tx);border:1px solid var(--ln)}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.mut{color:var(--mut)}.big{font-size:30px;font-weight:800}.cy{color:var(--cy)}
+#land{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:radial-gradient(circle at 50% 0,#10224a,var(--bg) 60%)}
+#land h1{font-size:clamp(40px,8vw,72px);margin:0;letter-spacing:2px}#land p{max-width:560px;color:var(--mut)}
+#login{display:none;max-width:340px;width:100%;text-align:left;margin-top:18px}
+#app{display:none}.shell{display:flex;min-height:100vh}
+nav{width:200px;background:#0a1020;border-right:1px solid var(--ln);padding:14px 8px;flex:none}
+nav b{display:block;color:var(--cy);font-size:18px;padding:0 8px 12px}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--mut);padding:10px;border-radius:8px}
+nav button.on,nav button:hover{background:#14224a;color:var(--tx)}
+main{flex:1;padding:22px;min-width:0;max-width:1100px}h1.t{margin:0;font-size:22px}
+.sec{display:none}.sec.on{display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px;border-bottom:1px solid var(--ln);text-align:left}
+.bar{height:14px;background:#050810;border-radius:99px;overflow:hidden;border:1px solid var(--ln)}.bar i{display:block;height:100%;width:0;transition:width .8s ease}
+.ok{color:var(--gn)}.bad{color:var(--rd)}.warn{color:var(--am)}
+.note{border:1px solid #5a4510;background:#1d1708;color:var(--am);border-radius:10px;padding:10px;font-size:13px;margin-top:12px}
+@media(max-width:720px){.shell{flex-direction:column}nav{width:100%;display:flex;overflow-x:auto;padding:8px}nav b{display:none}nav button{white-space:nowrap;width:auto}main{padding:14px}}
+@media print{nav,.noprint{display:none!important}body{background:#fff;color:#000}.card{background:#fff;border-color:#999}.mut{color:#444}}
+
+:root{--bg:#050912;--card:rgba(16,26,52,.62);--ln:rgba(80,120,200,.22);--cy:#22d3ee;--vi:#8b5cf6}
+body{background:#050912;background-image:linear-gradient(rgba(34,211,238,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.045) 1px,transparent 1px);background-size:44px 44px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(600px 400px at 15% 0,rgba(34,211,238,.13),transparent),radial-gradient(600px 400px at 90% 20%,rgba(139,92,246,.14),transparent)}
+.card{background:var(--card);backdrop-filter:blur(10px);transition:.25s;animation:up .6s both}.card:hover{border-color:rgba(34,211,238,.5);box-shadow:0 0 28px rgba(34,211,238,.12);transform:translateY(-2px)}
+.btn{background:linear-gradient(90deg,#22d3ee,#8b5cf6);color:#fff;box-shadow:0 0 20px rgba(34,211,238,.35);transition:.2s}.btn:hover{transform:translateY(-2px);box-shadow:0 0 32px rgba(139,92,246,.55)}
+.ghost{background:rgba(255,255,255,.04);box-shadow:none;color:var(--tx);border:1px solid var(--ln)}
+nav{background:rgba(7,12,26,.85);backdrop-filter:blur(10px)}nav b{background:linear-gradient(90deg,#22d3ee,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav button{border-left:3px solid transparent;transition:.2s}nav button.on{border-left-color:var(--cy);background:linear-gradient(90deg,rgba(34,211,238,.14),transparent)}
+.sec.on{animation:up .5s both}h1.t{font-size:26px}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes flow{to{stroke-dashoffset:-40}}@keyframes pulse{50%{opacity:.35}}@keyframes fl{50%{transform:translateY(-8px)}}
+#land{display:block;text-align:center;padding:0;min-height:100vh;background:none;position:relative}
+.hero{padding:70px 20px 30px;max-width:900px;margin:auto}.badge{display:inline-block;border:1px solid var(--ln);border-radius:99px;padding:4px 14px;color:var(--cy);font-size:12px;letter-spacing:1px;background:rgba(34,211,238,.07)}
+#land h1{font-size:clamp(46px,9vw,92px);margin:14px 0 6px;font-weight:700;letter-spacing:.14em;background:linear-gradient(90deg,#e8eeff,#22d3ee 50%,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+#land p{margin:8px auto;color:#a9b6d6;max-width:620px;font-size:16px}
+.wire{max-width:760px;margin:20px auto;display:block}.wire path{stroke-dasharray:8 6;animation:flow 1s linear infinite}.wire circle{animation:pulse 2s infinite}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:34px;margin:26px 0}.stats b{display:block;font-size:30px;color:var(--cy)}.stats span{color:var(--mut);font-size:12px}
+.feat{max-width:1000px;margin:20px auto;padding:0 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;text-align:left}
+.feat .card .ic{font-size:26px;display:block;margin-bottom:6px}
+#login{margin:24px auto;display:none;animation:up .5s both}
+.chip{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;font-size:12px;border:1px solid var(--ln);background:rgba(255,255,255,.03)}.chip.live{color:var(--gn);border-color:var(--gn);box-shadow:0 0 12px rgba(52,211,153,.25)}
+.kpi .big{background:linear-gradient(90deg,#fff,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gn);margin-right:6px;animation:pulse 1.5s infinite}
+
+body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}.big,td:last-child{font-family:"JetBrains Mono",ui-monospace,monospace}
+.card{animation:up .6s backwards}.sec.on{animation:up .5s backwards}#login{animation:up .5s backwards}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}#land,#app{position:relative;z-index:1}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(420px at var(--mx,50%) var(--my,30%),rgba(139,92,246,.12),transparent)}
+#land h1{background-size:200% auto;animation:sh 5s ease-in-out infinite alternate}@keyframes sh{to{background-position:100% center}}
+@keyframes cur{to{stroke-dashoffset:-17}}#cf{animation:cur .8s linear infinite}
+#th,#sr{position:fixed;top:12px;right:14px;z-index:60;border:1px solid var(--ln);background:var(--card);color:var(--tx);border-radius:99px;padding:7px 13px;backdrop-filter:blur(10px)}#sr{right:64px;font-size:12px}
+#cp{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);padding:12vh 16px}#cp .card{max-width:520px;margin:auto}
+#cpl div{padding:9px 10px;border-radius:8px;cursor:pointer}#cpl div:hover,#cpl div.a{background:rgba(34,211,238,.15)}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:120;background:var(--card);border:1px solid var(--cy);border-radius:99px;padding:9px 18px;display:none;backdrop-filter:blur(10px)}
+[data-theme=light]{--bg:#eef2fb;--card:rgba(255,255,255,.72);--ln:rgba(60,90,160,.25);--tx:#0c1530;--mut:#52618a}
+[data-theme=light] body{background-color:#eef2fb;background-image:linear-gradient(rgba(30,90,200,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(30,90,200,.07) 1px,transparent 1px)}
+[data-theme=light] input,[data-theme=light] select{background:#fff}[data-theme=light] nav{background:rgba(255,255,255,.85)}
+[data-theme=light] #land h1,[data-theme=light] .kpi .big{background-image:linear-gradient(90deg,#0c1530,#0891b2 50%,#7c3aed)}
+[data-theme=light] #land p{color:#3b4a73}[data-theme=light] .ghost{background:rgba(0,0,0,.04)}
+
+h1.t,#land h1,nav b,.mod b,.big,.feat b{font-family:"Rajdhani","Inter",system-ui,sans-serif}.big{font-size:30px;font-weight:700}h1.t{font-size:30px;font-weight:700;letter-spacing:.02em}
+.mod{cursor:pointer}.mod.live{border-color:rgba(52,211,153,.45)}.mi{font-size:28px;margin-bottom:4px}.flo{animation:cur .8s linear infinite}
+#land h1{font-family:"Orbitron","Rajdhani",sans-serif;font-weight:800;letter-spacing:.1em;font-size:clamp(34px,8vw,80px)}nav b{font-family:"Orbitron","Rajdhani",sans-serif;font-size:17px}.feat b{font-size:19px}
+</style></head><body>
+<canvas id="bg"></canvas><button id="th" title="Theme">🌗</button><button id="sr">🔍 Ctrl+K</button>
+<div id="cp"><div class="card"><input id="cpi" placeholder="Jump to a page or module… (Esc to close)"><div id="cpl" style="margin-top:8px"></div></div></div><div id="toast"></div>
+
+<div id="land"><div class="hero">
+ <span class="badge">⚡ ENGINEERING INTELLIGENCE PLATFORM</span>
+ <h1>ELECAL</h1>
+ <p>Size equipment, run power system studies and issue client-ready reports. Checked against IEC, IEEE, NEC, IS and regional standards.</p>
+ <svg class="wire" viewBox="0 0 760 90"><path d="M20 45H250M300 45H460M510 45H740" stroke="#22d3ee" stroke-width="2.5" fill="none"/><rect x="250" y="25" width="50" height="40" rx="8" fill="#0e1528" stroke="#8b5cf6" stroke-width="2"/><circle cx="275" cy="45" r="8" fill="#8b5cf6"/><rect x="460" y="25" width="50" height="40" rx="8" fill="#0e1528" stroke="#22d3ee" stroke-width="2"/><path d="M475 55l10-20 10 20" stroke="#fbbf24" stroke-width="2" fill="none" style="animation:none;stroke-dasharray:none"/><circle cx="20" cy="45" r="6" fill="#34d399"/><circle cx="740" cy="45" r="6" fill="#fbbf24"/></svg>
+ <button class="btn" id="start" style="font-size:16px;padding:12px 28px">Sign in to start</button>
+ <div class="card" id="login" style="max-width:340px;text-align:left">
+  <b>Welcome back</b>
+  <label>Email</label><input id="em" type="email" placeholder="test@elecal.com">
+  <label>Password</label><input id="pw" type="password">
+  <p class="mut" style="font-size:12px">Test account: <b>test@elecal.com</b> / <b>Elecal@2026</b></p>
+  <button class="btn ghost" id="fill" style="width:100%;margin-bottom:8px">Fill test login</button>
+  <button class="btn" id="go" style="width:100%">Sign in</button><div id="err" class="bad" style="font-size:12px;margin-top:6px"></div>
+ </div>
+ <div class="stats"><div><b>23</b><span>CALCULATION MODULES</span></div><div><b>6</b><span>REGIONS OF STANDARDS</span></div><div><b>5</b><span>POWER STUDIES</span></div></div>
+</div>
+<div class="feat">
+ <div class="card"><span class="ic">🧮</span><b>Smart calculations</b><p class="mut">Cables, transformers, motors, earthing and more, with under/over-size verdicts.</p></div>
+ <div class="card"><span class="ic">🔌</span><b>Live single line diagram</b><p class="mut">IEC symbols, ratings, then load flow, fault, relay, harmonics, arc flash.</p></div>
+ <div class="card"><span class="ic">📘</span><b>Learning library</b><p class="mut">Basics to substation design for renewable, power and steel.</p></div>
+ <div class="card"><span class="ic">📄</span><b>Client-ready reports</b><p class="mut">Formal calculation sheets you can hand straight to a client.</p></div>
+</div></div>
+<div id="app"><div class="shell">
+<nav><b>⚡ ELECAL</b>
+ <button class="on" data-s="dash">Dashboard</button><button data-s="calc">Calculations</button>
+ <button data-s="sld">Single Line Diagram</button><button data-s="lib">Learning Library</button>
+ <button data-s="proj">Projects</button><button id="out">Sign out</button></nav>
+<main>
+
+<section class="sec on" id="dash"><h1 class="t">Welcome, <span id="who"></span></h1><p class="mut"><span class="dot"></span>All systems running</p>
+ <div class="grid kpi">
+  <div class="card"><div class="mut">Calculations saved</div><div class="big" id="cnt">0</div></div>
+  <div class="card"><div class="mut">Modules live</div><div class="big" id="ml">0</div><div class="mut">of 23 modules</div></div>
+  <div class="card"><div class="mut">Standards covered</div><div class="big" id="sc">0</div><div class="mut">IEC · NEC · IS · AS/NZS</div></div>
+  <div class="card"><div class="mut">Grid load (demo)</div><div class="big" id="gl">–</div><svg id="spark" viewBox="0 0 200 40" style="width:100%;height:40px"></svg></div></div>
+ <div class="card" style="margin-top:12px"><b>Calculation modules</b><div id="mods" style="margin-top:8px"></div></div></section>
+
+<section class="sec" id="calc"><h1 class="t">Calculation Modules</h1><p class="mut">23 engineering domains. Each module applies the relevant standards, checks the result and explains it.</p><div class="grid" id="hub" style="margin-top:14px"></div></section>
+<section class="sec" id="m1"><button class="btn ghost noprint" onclick="goMod('calc')">← All modules</button><h1 class="t" style="margin-top:10px">Conductor &amp; Cable Engineering</h1><p class="mut">Cable sizing: current capacity, voltage drop and short-circuit withstand, checked together.</p>
+ <div class="grid">
+  <div class="card"><b>Load</b>
+   <label>Power (kW)</label><input id="kw" type="number" value="55">
+   <label>Voltage, line-to-line (V)</label><input id="vv" type="number" value="415">
+   <label>Power factor</label><input id="pf" type="number" step="0.01" value="0.85">
+   <label>Phases</label><select id="ph"><option value="3">Three-phase</option><option value="1">Single-phase</option></select></div>
+  <div class="card"><b>Installation</b>
+   <label>Route length (m)</label><input id="len" type="number" value="120">
+   <label>Conductor</label><select id="mat"><option value="cu">Copper XLPE</option><option value="al">Aluminium XLPE</option></select>
+   <label>Ambient temperature (°C)</label><input id="amb" type="number" value="40">
+   <label>Grouping factor</label><input id="grp" type="number" step="0.01" value="0.8"></div>
+  <div class="card"><b>Standard &amp; faults</b>
+   <label>Standard</label><select id="std"><option value="4">IEC 60364 / IS 732 (4% drop)</option><option value="3">NEC (3% branch drop)</option><option value="5">AS/NZS 3008 / SANS 10142 (5% drop)</option></select>
+   <label>Fault level (kA)</label><input id="fk" type="number" step="0.1" value="25">
+   <label>Fault clearing time (s)</label><input id="ft" type="number" step="0.01" value="0.5"></div></div>
+ <div class="grid" style="margin-top:12px">
+  <div class="card"><div class="mut">Recommended cable</div><div class="big cy" id="size">–</div><div id="verdict"></div></div>
+  <div class="card"><div class="mut">Design current Ib</div><div class="big" id="ib">–</div><div class="mut" id="iz"></div>
+   <div class="bar" style="margin-top:8px"><i id="b1"></i></div><div class="mut">Current utilisation</div></div>
+  <div class="card"><div class="mut">Voltage drop</div><div class="big" id="vd">–</div><div class="mut" id="vdl"></div>
+   <div class="bar" style="margin-top:8px"><i id="b2"></i></div><div class="mut">Drop vs limit</div></div></div>
+ <div class="card" style="margin-top:12px"><b>Live cable view</b><span class="mut" style="font-size:12px"> glow = loading, flow speed = current, fade = voltage drop</span><svg id="cab" viewBox="0 0 700 110" style="width:100%"><defs><linearGradient id="cg"><stop id="g1" offset="0" stop-color="#34d399"/><stop id="g2" offset="1" stop-color="#34d399"/></linearGradient></defs><rect id="cr" x="40" y="38" width="620" height="34" rx="17" fill="url(#cg)"/><path id="cf" d="M50 55H650" stroke="#fff" stroke-width="3" stroke-dasharray="3 14" stroke-linecap="round"/><text id="t1" x="40" y="24" fill="#8b9abf" font-size="12"></text><text id="t2" x="660" y="24" fill="#8b9abf" font-size="12" text-anchor="end"></text><text id="t3" x="350" y="100" fill="#8b9abf" font-size="12" text-anchor="middle"></text></svg></div>
+ <div class="card" style="margin-top:12px"><b>Engineering analysis</b><div id="ana" style="margin-top:6px"></div></div>
+ <div class="card" style="margin-top:12px"><b>Calculation sheet</b><table id="sheet"></table></div>
+ <div class="noprint" style="margin-top:12px;display:flex;gap:8px"><button class="btn" id="sv">Save to project</button><button class="btn ghost" onclick="window.print()">Print / save as PDF report</button></div>
+ <div class="note">Version 1 uses simplified tabulated values (Method C, 90 °C copper, scaled for aluminium) for checking. Confirm against the full standard tables before issuing a design.</div></section>
+
+<section class="sec" id="m6"><button class="btn ghost noprint" onclick="goMod('calc')">← All modules</button>
+<h1 class="t" style="margin-top:10px">Transformer Engineering</h1><p class="mut">Sizing, loading, fault level and losses · IEC 60076 · IEEE C57.91 · IS 2026</p>
+<div class="grid">
+<div class="card"><b>Load</b><label>Connected load (kW)</label><input id="tf_kw" type="number" value="1150"><label>Power factor</label><input id="tf_pf" type="number" step="0.01" value="0.9"><label>Future growth (%)</label><input id="tf_gr" type="number" value="20"><label>Ambient temperature (°C)</label><input id="tf_amb" type="number" value="40"></div>
+<div class="card"><b>Transformer</b><label>HV side (kV)</label><input id="tf_hv" type="number" value="11"><label>LV side (V)</label><input id="tf_lv" type="number" value="415"><label>Impedance Z (%)</label><input id="tf_z" type="number" step="0.1" value="6"><label>Source fault level (MVA, 0 = infinite bus)</label><input id="tf_ss" type="number" value="250"></div></div>
+<div class="grid" style="margin-top:12px">
+<div class="card"><div class="mut">Recommended rating</div><div class="big cy" id="tf_rate">–</div><div id="tf_stat"></div></div>
+<div class="card"><div class="mut">Loading incl. growth</div><div class="big" id="tf_load">–</div><div class="bar" style="margin-top:8px"><i id="tf_b"></i></div></div>
+<div class="card"><div class="mut">LV fault level</div><div class="big" id="tf_sc">–</div><div class="mut" id="tf_i"></div></div>
+<div class="card"><div class="mut">Efficiency at today's load</div><div class="big" id="tf_eff">–</div><div class="mut">Typical losses assumed</div></div></div>
+<div class="card" style="margin-top:12px"><b>Live transformer view</b><svg viewBox="0 0 700 150" style="width:100%"><path d="M20 75H225M475 75H680" stroke="#22d3ee" stroke-width="3"/><path id="tf_f" d="M20 75H225M475 75H680" stroke="#fff" stroke-width="3" stroke-dasharray="3 14" stroke-linecap="round" class="flo"/><circle cx="310" cy="75" r="44" fill="none" stroke="#8b5cf6" stroke-width="5"/><circle cx="390" cy="75" r="44" fill="none" stroke="#22d3ee" stroke-width="5"/><circle id="tf_ring" cx="350" cy="75" r="62" fill="none" stroke="#34d399" stroke-width="6" stroke-linecap="round" stroke-dasharray="0 390" transform="rotate(-90 350 75)" style="transition:stroke-dasharray 1s"/><text id="tf_t" x="350" y="82" text-anchor="middle" fill="currentColor" font-size="20" font-weight="700"></text><text x="20" y="62" fill="#8b9abf" font-size="12">HV</text><text x="680" y="62" fill="#8b9abf" font-size="12" text-anchor="end">LV</text></svg></div>
+<div class="card" style="margin-top:12px"><b>Engineering analysis</b><div id="tf_ana" style="margin-top:6px"></div></div>
+<div class="card" style="margin-top:12px"><b>Calculation sheet</b><table id="tf_sheet"></table></div>
+<div class="noprint" style="margin-top:12px"><button class="btn" onclick="window.print()">Print / save as PDF report</button></div>
+<div class="note">Simplified check: ambient derating 1%/°C above 30 °C, typical losses (iron 0.2%, copper 1.0% of kVA). Replace with the manufacturer's guaranteed losses and the IEC 60076-7 loading guide for final design.</div></section>
+<section class="sec" id="sld"><h1 class="t">Single Line Diagram</h1><div class="card" style="margin-top:12px">Planned: IEC symbol library, ratings, then load flow, fault, relay coordination, harmonics and arc flash.</div></section>
+<section class="sec" id="lib"><h1 class="t">Learning Library</h1><div class="card" style="margin-top:12px">Planned: chapters from fundamentals to substation design for renewable, power and steel industries, with short animations.</div></section>
+<section class="sec" id="proj"><h1 class="t">Projects</h1><p class="mut">Saved in this browser.</p><div class="card"><table id="plist"></table></div></section>
+</main></div></div>
+
+<script>
+const $=i=>document.getElementById(i),n=i=>parseFloat($(i).value)||0;
+const S=[1.5,2.5,4,6,10,16,25,35,50,70,95,120,150,185,240,300],A=[23,31,42,54,75,100,127,158,192,246,298,346,395,450,538,621];
+const ls=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},ss=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let last=null;
+function show(){const u=ls('elecal_u',null);$('land').style.display=u?'none':'block';$('app').style.display=u?'block':'none';if(u){$('who').textContent=u.name||'engineer';calc();plist();dashFx()}}
+$('start').onclick=()=>{$('login').style.display='block';$('start').style.display='none'};
+$('fill').onclick=()=>{$('em').value='test@elecal.com';$('pw').value='Elecal@2026'};
+$('go').onclick=()=>{if($('em').value.trim().toLowerCase()==='test@elecal.com'&&$('pw').value==='Elecal@2026'){ss('elecal_u',{name:'Test Engineer',email:'test@elecal.com'});show()}else $('err').textContent='Wrong email or password. Use the test account above.'};
+function cu(id,to,suf=''){let x=0;const e=$(id),t=setInterval(()=>{x+=Math.max(1,to/20);if(x>=to){x=to;clearInterval(t)}e.textContent=Math.round(x)+suf},35)}
+function dashFx(){cu('ml',MODS.filter(m=>m[3]).length);cu('sc',3);const names=MODS.map(m=>m[1]);
+$('mods').innerHTML=names.map((m,i)=>`<span class="chip ${MODS[i][3]?'live':''}">${MODS[i][3]?'● ':''}${m}</span>`).join('');
+let pts=[];const draw=()=>{pts.push(40+30*Math.sin(Date.now()/900)+Math.random()*12);if(pts.length>40)pts.shift();$('spark').innerHTML='<polyline fill="none" stroke="#22d3ee" stroke-width="2" points="'+pts.map((p,i)=>(i*5)+','+(40-p*0.4)).join(' ')+'"/>';$('gl').textContent=Math.round(pts[pts.length-1]+30)+' %'};
+if(!window._t)window._t=setInterval(draw,500)}
+$('out').onclick=()=>{try{localStorage.removeItem('elecal_u')}catch(e){}show()};
+document.querySelectorAll('nav button[data-s]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button,.sec').forEach(e=>e.classList.remove('on'));b.classList.add('on');$(b.dataset.s).classList.add('on')});
+function calc(){
+ const kw=n('kw'),V=n('vv'),pf=n('pf')||0.8,L=n('len'),T=n('amb'),g=n('grp')||1,lim=n('std'),fk=n('fk'),ft=n('ft'),th=$('ph').value==='3',cu=$('mat').value==='cu';
+ const Ib=th?kw*1000/(Math.sqrt(3)*V*pf):kw*1000/(V*pf);
+ const kT=T>=90?0:Math.sqrt((90-T)/60),D=kT*g,mat=cu?1:0.78,rho=cu?0.0225:0.037,k=cu?143:94;
+ const mult=th?Math.sqrt(3):2,sin=Math.sqrt(1-pf*pf);
+ const vdOf=s=>mult*Ib*L*(rho/s*pf+0.00008*sin)/V*100;
+ let idx=-1,why='';
+ const scMin=fk*1000*Math.sqrt(ft)/k;
+ for(let i=0;i<S.length;i++){if(A[i]*mat*D>=Ib&&vdOf(S[i])<=lim&&S[i]>=scMin){idx=i;break}}
+ if(idx<0)idx=S.length-1;
+ const s=S[idx],Iz=A[idx]*mat*D,vd=vdOf(s),ut=Ib/Iz*100,ok=Iz>=Ib&&vd<=lim&&s>=scMin;
+ const ctl=[];for(let i=0;i<S.length;i++){if(A[i]*mat*D>=Ib){ctl.push(['current',S[i]]);break}}
+ for(let i=0;i<S.length;i++){if(vdOf(S[i])<=lim){ctl.push(['voltage drop',S[i]]);break}}
+ const sc=S.find(x=>x>=scMin)||'>300';ctl.push(['short-circuit',sc]);
+ const gov=ctl.slice().sort((a,b)=>(b[1]===sc&&typeof sc==='string'?1e9:b[1])-(a[1]===sc&&typeof sc==='string'?1e9:a[1]))[0][0];
+ const status=!ok?'<span class="bad">▲ No standard size meets all checks, use parallel runs</span>':ut>90?'<span class="warn">● Adequate, heavily loaded</span>':ut<35?'<span class="warn">● Oversized for current, size set by '+gov+'</span>':'<span class="ok">✔ Correctly sized</span>';
+ $('size').textContent=s+' mm² '+(cu?'Cu':'Al');$('verdict').innerHTML=status;
+ $('ib').textContent=Ib.toFixed(1)+' A';$('iz').textContent='Derated capacity Iz = '+Iz.toFixed(0)+' A';
+ $('vd').textContent=vd.toFixed(2)+' %';$('vdl').textContent='Limit '+lim+' %';
+ $('b1').style.width=Math.min(ut,100)+'%';$('b1').style.background=ut>100?'var(--rd)':ut>90?'var(--am)':'var(--gn)';
+ const vp=vd/lim*100;$('b2').style.width=Math.min(vp,100)+'%';$('b2').style.background=vp>100?'var(--rd)':vp>90?'var(--am)':'var(--gn)';
+ const msg=[];msg.push('Current: '+Ib.toFixed(1)+' A against a derated capacity of '+Iz.toFixed(0)+' A ('+ut.toFixed(0)+'% loaded).');
+ msg.push('Voltage drop: '+vd.toFixed(2)+'% against the '+lim+'% limit.');
+ msg.push('Short-circuit: minimum '+scMin.toFixed(1)+' mm² for '+fk+' kA for '+ft+' s; selected '+s+' mm².');
+ msg.push('Governing check: '+gov+'.');if(T>=90)msg.push('Ambient is at or above conductor rating, derating is invalid.');
+ if(vp>85&&vp<=100)msg.push('Voltage drop is close to the limit; a larger size gives margin for load growth.');
+ $('ana').innerHTML='<ul style="margin:0;padding-left:18px">'+msg.map(m=>'<li>'+m+'</li>').join('')+'</ul>';
+ const row=(a,b,c)=>`<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`;
+ $('sheet').innerHTML='<tr><th>Item</th><th>Formula</th><th>Result</th></tr>'+row('Design current',th?'Ib = P/(√3·V·cosφ)':'Ib = P/(V·cosφ)',Ib.toFixed(2)+' A')+row('Temperature factor','√((90−T)/60)',kT.toFixed(3))+row('Total derating','kT × grouping',D.toFixed(3))+row('Base capacity','Table, '+s+' mm²',(A[idx]*mat).toFixed(0)+' A')+row('Derated capacity','Iz = base × derating',Iz.toFixed(1)+' A')+row('Voltage drop','ΔV% = m·Ib·L·(R·cosφ+X·sinφ)/V',vd.toFixed(2)+' %')+row('Min. fault size','S ≥ I·√t / k  (k='+k+')',scMin.toFixed(1)+' mm²');
+ cabFx(Ib,ut,vd,lim,ok,s,V);last={t:new Date().toLocaleString(),s:s+' mm² '+(cu?'Cu':'Al'),kw,L,Ib:+Ib.toFixed(1),vd:+vd.toFixed(2),ok};
+}
+document.querySelectorAll('#m1 input,#m1 select').forEach(e=>e.oninput=calc);
+function plist(){const L=ls('elecal_p',[]);$('cnt').textContent=L.length;
+ $('plist').innerHTML='<tr><th>Saved</th><th>Cable</th><th>Load</th><th>Length</th><th>Ib</th><th>Drop</th></tr>'+(L.length?L.map(p=>`<tr><td>${p.t}</td><td>${p.s}</td><td>${p.kw} kW</td><td>${p.L} m</td><td>${p.Ib} A</td><td>${p.vd}%</td></tr>`).join(''):'<tr><td colspan="6">Nothing saved yet</td></tr>')}
+$('sv').onclick=()=>{calc();const L=ls('elecal_p',[]);L.unshift(last);ss('elecal_p',L);plist()};
+</script><script>
+const $$=i=>document.getElementById(i),R=document.documentElement;
+try{R.dataset.theme=localStorage.getItem('elecal_th')||'dark'}catch(e){}
+$$('th').onclick=()=>{const t=R.dataset.theme==='light'?'dark':'light';R.dataset.theme=t;try{localStorage.setItem('elecal_th',t)}catch(e){}};
+function toast(m){const t=$$('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2200)}
+function cabFx(Ib,ut,vd,lim,ok,s,V){const c=(!ok||ut>100)?'#f87171':ut>90?'#fbbf24':ut<35?'#22d3ee':'#34d399',vp=Math.min(vd/lim,1.2);
+$$('g1').setAttribute('stop-color',c);$$('g2').setAttribute('stop-color',c);$$('g2').setAttribute('stop-opacity',Math.max(.25,1-vp*.7));
+$$('cr').style.filter='drop-shadow(0 0 '+(6+Math.min(ut,120)/4)+'px '+c+')';$$('cf').style.animationDuration=Math.max(.15,2.2-Ib/110)+'s';
+$$('t1').textContent='Source '+V+' V';$$('t2').textContent='Load end −'+vd.toFixed(2)+' %';$$('t3').textContent=s+' mm² · '+Ib.toFixed(0)+' A · '+ut.toFixed(0)+'% loaded'}
+const cv=$$('bg'),cx=cv.getContext('2d');let W,H,N=[];
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;N=Array.from({length:Math.min(60,W/22|0)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}))}
+rs();addEventListener('resize',rs);
+function loop(t){cx.clearRect(0,0,W,H);const c=R.dataset.theme==='light'?'30,90,200':'34,211,238';
+for(const a of N){a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1}
+for(let i=0;i<N.length;i++)for(let j=i+1;j<N.length;j++){const a=N[i],b=N[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<150){cx.strokeStyle='rgba('+c+','+.25*(1-d/150)+')';cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();
+if(d<110&&(i+j)%4===0){const p=((t/1400)+i*.13)%1;cx.fillStyle='rgba(251,191,36,.9)';cx.beginPath();cx.arc(a.x+(b.x-a.x)*p,a.y+(b.y-a.y)*p,2,0,7);cx.fill()}}}
+cx.fillStyle='rgba('+c+',.8)';for(const a of N){cx.beginPath();cx.arc(a.x,a.y,2,0,7);cx.fill()}requestAnimationFrame(loop)}requestAnimationFrame(loop);
+document.addEventListener('mousemove',e=>{document.body.style.setProperty('--mx',e.clientX+'px');document.body.style.setProperty('--my',e.clientY+'px');
+const c=e.target.closest&&e.target.closest('.feat .card,.kpi .card');document.querySelectorAll('.tilt').forEach(x=>{if(x!==c){x.style.transform='';x.classList.remove('tilt')}});
+if(c){const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.classList.add('tilt');c.style.transform='perspective(700px) rotateY('+px*12+'deg) rotateX('+-py*12+'deg) translateY(-3px)'}});
+let ci=[];function cpGo(i){const it=ci[i];if(!it)return;$$('cp').style.display='none';if(it.b)it.b.click();else if(it.id)goMod(it.id);else toast(it.t+' is planned — not built yet')}
+function cpFill(){const q=$$('cpi').value.toLowerCase();ci=[...document.querySelectorAll('nav button[data-s]')].map(b=>({t:b.textContent,b})).concat([...document.querySelectorAll('#mods .chip')].map((c,i)=>({t:c.textContent.replace('● ',''),id:MODS[i][3]}))).filter(x=>x.t.toLowerCase().includes(q)).slice(0,8);
+$$('cpl').innerHTML=ci.map((x,i)=>'<div class="'+(i?'':'a')+'" data-i="'+i+'">'+(x.b?'📄 ':'🧮 ')+x.t+'</div>').join('')||'<div class="mut">No match</div>'}
+$$('cpl').onclick=e=>{const d=e.target.closest('[data-i]');if(d)cpGo(+d.dataset.i)};$$('cpi').oninput=cpFill;
+function cpOpen(){if($$('app').style.display!=='block'){toast('Sign in first');return}$$('cp').style.display='block';$$('cpi').value='';cpFill();$$('cpi').focus()}
+$$('sr').onclick=cpOpen;$$('cp').onclick=e=>{if(e.target.id==='cp')$$('cp').style.display='none'};
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();cpOpen()}else if(e.key==='Escape')$$('cp').style.display='none';else if(e.key==='Enter'&&$$('cp').style.display==='block')cpGo(0)});
+const MODS=[['🔌','Conductor & Cable Engineering','IEC 60364-5-52 · NEC 310 · IS 732','m1'],['📊','Load Engineering','IEC 60364-1 · NEC 220'],['🏭','Power System Facilities','IEC 60909 · IEEE 399'],['⏚','Earthing & Grounding','IEEE 80 · IS 3043 · IEC 62305'],['🌩️','Lightning & Protection','IEC 62305 · NFPA 780'],['🔁','Transformer Engineering','IEC 60076 · IEEE C57 · IS 2026','m6'],['⚙️','Motor Engineering','IEC 60034 · NEMA MG1 · IS 325'],['🛢️','Generator Engineering','ISO 8528 · IEEE C50 · IEC 60034'],['🔲','Switchgear Engineering','IEC 62271 · IEEE C37 · IS 13118'],['📏','Busbar Engineering','IEC 61439 · IEC 60865'],['🛡️','Protection Engineering','IEC 60255 · IEEE C37.112'],['〰️','Capacitor & Reactive Power','IEC 60831 · IEEE 18 · IEEE 1036'],['💡','Lighting Engineering','EN 12464 · IES · IS 3646'],['🦺','Electrical Safety','IEEE 1584 · NFPA 70E · IEC 61140'],['🔋','Battery & UPS','IEEE 485 · IEC 62040'],['☀️','Renewable Energy','IEC 61727 · IEC 61400 · IEEE 1547'],['🗼','Transmission Line','IEC 60826 · IEEE 738'],['🏗️','Substation Design','IEEE 1427 · IEC 61936'],['🏭','Industrial Plant Electrical Design','IEC 60364 · NEC 500 · IEC 60079'],['💰','Electrical Cost Engineering','Life-cycle · IEC 60300-3-3'],['🕸️','Electrical Network Calculations','IEC 60909 · IEEE 399'],['🌱','Energy Engineering','ISO 50001 · IEC 60364-8-1'],['🧮','Miscellaneous Engineering Calculations','Various']];
+function goMod(id){document.querySelectorAll('.sec').forEach(e=>e.classList.remove('on'));$$(id).classList.add('on');scrollTo(0,0)}
+$$('hub').innerHTML=MODS.map((m,i)=>'<div class="card mod'+(m[3]?' live':'')+'" onclick="'+(m[3]?"goMod('"+m[3]+"')":"toast('"+m[1].replace(/[&']/g,'')+" is planned')")+'" style="animation-delay:'+i*35+'ms"><div class="mi">'+m[0]+'</div><b style="font-size:18px">'+m[1]+'</b><div class="mut" style="font-size:12px;margin:4px 0 8px">'+m[2]+'</div><span class="chip'+(m[3]?' live':'')+'">'+(m[3]?'● Live':'Planned')+'</span></div>').join('');
+const TR=[100,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000];
+function tfCalc(){const g=i=>parseFloat($$(i).value)||0,kw=g('tf_kw'),pf=g('tf_pf')||.9,gr=g('tf_gr'),amb=g('tf_amb'),hv=g('tf_hv')||11,lv=(g('tf_lv')||415)/1000,z=g('tf_z')||6,ss=g('tf_ss');
+const kva0=kw/pf,req=kva0*(1+gr/100),der=amb>30?Math.max(.5,1-(amb-30)*.01):1,pick=TR.find(r=>r*der>=req)||TR[TR.length-1],cap=pick*der,ld=req/cap*100,ld0=kva0/cap*100;
+const I1=pick/(Math.sqrt(3)*hv),I2=pick/(Math.sqrt(3)*lv),zs=ss>0?pick/(ss*1000)*100:0,isc=I2/((z+zs)/100)/1000;
+const x=kva0/pick,pfe=.002*pick,pcu=.01*pick,eff=x*pick*pf/(x*pick*pf+pfe+x*x*pcu)*100;
+const c=ld>100?'#f87171':ld>85?'#fbbf24':ld<40?'#fbbf24':'#34d399',st=ld>100?'<span class="bad">▲ Undersized</span>':ld>85?'<span class="warn">● Heavily loaded, little spare capacity</span>':ld<40?'<span class="warn">● Oversized, high no-load loss share</span>':'<span class="ok">✔ Well sized</span>';
+$$('tf_rate').textContent=pick+' kVA';$$('tf_stat').innerHTML=st;$$('tf_load').textContent=ld.toFixed(0)+' %';$$('tf_b').style.width=Math.min(ld,100)+'%';$$('tf_b').style.background=c;
+$$('tf_sc').textContent=isc.toFixed(1)+' kA';$$('tf_i').textContent='LV full load '+I2.toFixed(0)+' A · HV '+I1.toFixed(1)+' A';$$('tf_eff').textContent=eff.toFixed(2)+' %';
+$$('tf_ring').setAttribute('stroke-dasharray',Math.min(ld,100)/100*390+' 390');$$('tf_ring').setAttribute('stroke',c);$$('tf_ring').style.filter='drop-shadow(0 0 8px '+c+')';$$('tf_t').textContent=ld.toFixed(0)+'%';$$('tf_f').style.animationDuration=Math.max(.2,1.8-ld/80)+'s';
+const m=[];m.push('Required '+req.toFixed(0)+' kVA (load '+kva0.toFixed(0)+' kVA plus '+gr+'% growth). Selected '+pick+' kVA, derated to '+cap.toFixed(0)+' kVA at '+amb+' °C.');
+m.push('Loading is '+ld0.toFixed(0)+'% today and '+ld.toFixed(0)+'% after growth.'+(ld>100?' Select the next standard size.':ld<40?' A smaller unit would cut no-load losses.':''));
+m.push('LV prospective fault level is '+isc.toFixed(1)+' kA; switchgear and cables on the LV side must withstand at least this.');
+m.push('Efficiency peaks near '+(Math.sqrt(pfe/pcu)*100).toFixed(0)+'% loading; today the unit runs at '+(x*100).toFixed(0)+'%.');
+$$('tf_ana').innerHTML='<ul style="margin:0;padding-left:18px">'+m.map(t=>'<li>'+t+'</li>').join('')+'</ul>';
+const r=(a,b,c2)=>'<tr><td>'+a+'</td><td>'+b+'</td><td>'+c2+'</td></tr>';
+$$('tf_sheet').innerHTML='<tr><th>Item</th><th>Formula</th><th>Result</th></tr>'+r('Apparent power','S = P / cosφ',kva0.toFixed(1)+' kVA')+r('With growth','S × (1+g)',req.toFixed(1)+' kVA')+r('Ambient derating','1 − 0.01(T−30)',der.toFixed(2))+r('Full-load LV current','I = S/(√3·V)',I2.toFixed(0)+' A')+r('Source impedance','Zs = S / Ssc',zs.toFixed(2)+' %')+r('LV fault current','Isc = I / (Zt+Zs)',isc.toFixed(1)+' kA')}
+document.querySelectorAll('#m6 input').forEach(e=>e.oninput=tfCalc);tfCalc();
+show();
+</script>
+</body></html>
