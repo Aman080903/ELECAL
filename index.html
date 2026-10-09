@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ELECAL</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#060a14;--card:#0e1528;--ln:#1c2a4a;--tx:#e8eeff;--mut:#8b9abf;--cy:#2dd4ff;--am:#fbbf24;--rd:#f87171;--gn:#34d399;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -42,7 +42,7 @@ nav button{border-left:3px solid transparent;transition:.2s}nav button.on{border
 @keyframes flow{to{stroke-dashoffset:-40}}@keyframes pulse{50%{opacity:.35}}@keyframes fl{50%{transform:translateY(-8px)}}
 #land{display:block;text-align:center;padding:0;min-height:100vh;background:none;position:relative}
 .hero{padding:70px 20px 30px;max-width:900px;margin:auto}.badge{display:inline-block;border:1px solid var(--ln);border-radius:99px;padding:4px 14px;color:var(--cy);font-size:12px;letter-spacing:1px;background:rgba(34,211,238,.07)}
-#land h1{font-size:clamp(46px,9vw,92px);margin:14px 0 6px;font-weight:900;letter-spacing:3px;background:linear-gradient(90deg,#e8eeff,#22d3ee 50%,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+#land h1{font-size:clamp(46px,9vw,92px);margin:14px 0 6px;font-weight:700;letter-spacing:.14em;background:linear-gradient(90deg,#e8eeff,#22d3ee 50%,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
 #land p{margin:8px auto;color:#a9b6d6;max-width:620px;font-size:16px}
 .wire{max-width:760px;margin:20px auto;display:block}.wire path{stroke-dasharray:8 6;animation:flow 1s linear infinite}.wire circle{animation:pulse 2s infinite}
 .stats{display:flex;justify-content:center;flex-wrap:wrap;gap:34px;margin:26px 0}.stats b{display:block;font-size:30px;color:var(--cy)}.stats span{color:var(--mut);font-size:12px}
@@ -53,7 +53,7 @@ nav button{border-left:3px solid transparent;transition:.2s}nav button.on{border
 .kpi .big{background:linear-gradient(90deg,#fff,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gn);margin-right:6px;animation:pulse 1.5s infinite}
 
-body{font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}.big,td:last-child{font-family:"JetBrains Mono",ui-monospace,monospace}
+body{font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}.big,td:last-child{font-family:"JetBrains Mono",ui-monospace,monospace}
 .card{animation:up .6s backwards}.sec.on{animation:up .5s backwards}#login{animation:up .5s backwards}
 #bg{position:fixed;inset:0;z-index:0;pointer-events:none}#land,#app{position:relative;z-index:1}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;background:radial-gradient(420px at var(--mx,50%) var(--my,30%),rgba(139,92,246,.12),transparent)}
@@ -69,8 +69,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;back
 [data-theme=light] #land h1,[data-theme=light] .kpi .big{background-image:linear-gradient(90deg,#0c1530,#0891b2 50%,#7c3aed)}
 [data-theme=light] #land p{color:#3b4a73}[data-theme=light] .ghost{background:rgba(0,0,0,.04)}
 
-h1.t,#land h1,nav b,.mod b,.big,.feat b{font-family:"Unbounded","Space Grotesk",system-ui,sans-serif}.big{font-size:24px}h1.t{font-size:24px}
+h1.t,#land h1,nav b,.mod b,.big,.feat b{font-family:"Rajdhani","Inter",system-ui,sans-serif}.big{font-size:30px;font-weight:700}h1.t{font-size:30px;font-weight:700;letter-spacing:.02em}
 .mod{cursor:pointer}.mod.live{border-color:rgba(52,211,153,.45)}.mi{font-size:28px;margin-bottom:4px}.flo{animation:cur .8s linear infinite}
+#land h1{font-family:"Orbitron","Rajdhani",sans-serif;font-weight:800;letter-spacing:.1em;font-size:clamp(34px,8vw,80px)}nav b{font-family:"Orbitron","Rajdhani",sans-serif;font-size:17px}.feat b{font-size:19px}
 </style></head><body>
 <canvas id="bg"></canvas><button id="th" title="Theme">🌗</button><button id="sr">🔍 Ctrl+K</button>
 <div id="cp"><div class="card"><input id="cpi" placeholder="Jump to a page or module… (Esc to close)"><div id="cpl" style="margin-top:8px"></div></div></div><div id="toast"></div>
@@ -241,7 +242,7 @@ $$('sr').onclick=cpOpen;$$('cp').onclick=e=>{if(e.target.id==='cp')$$('cp').styl
 addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();cpOpen()}else if(e.key==='Escape')$$('cp').style.display='none';else if(e.key==='Enter'&&$$('cp').style.display==='block')cpGo(0)});
 const MODS=[['🔌','Conductor & Cable Engineering','IEC 60364-5-52 · NEC 310 · IS 732','m1'],['📊','Load Engineering','IEC 60364-1 · NEC 220'],['🏭','Power System Facilities','IEC 60909 · IEEE 399'],['⏚','Earthing & Grounding','IEEE 80 · IS 3043 · IEC 62305'],['🌩️','Lightning & Protection','IEC 62305 · NFPA 780'],['🔁','Transformer Engineering','IEC 60076 · IEEE C57 · IS 2026','m6'],['⚙️','Motor Engineering','IEC 60034 · NEMA MG1 · IS 325'],['🛢️','Generator Engineering','ISO 8528 · IEEE C50 · IEC 60034'],['🔲','Switchgear Engineering','IEC 62271 · IEEE C37 · IS 13118'],['📏','Busbar Engineering','IEC 61439 · IEC 60865'],['🛡️','Protection Engineering','IEC 60255 · IEEE C37.112'],['〰️','Capacitor & Reactive Power','IEC 60831 · IEEE 18 · IEEE 1036'],['💡','Lighting Engineering','EN 12464 · IES · IS 3646'],['🦺','Electrical Safety','IEEE 1584 · NFPA 70E · IEC 61140'],['🔋','Battery & UPS','IEEE 485 · IEC 62040'],['☀️','Renewable Energy','IEC 61727 · IEC 61400 · IEEE 1547'],['🗼','Transmission Line','IEC 60826 · IEEE 738'],['🏗️','Substation Design','IEEE 1427 · IEC 61936'],['🏭','Industrial Plant Electrical Design','IEC 60364 · NEC 500 · IEC 60079'],['💰','Electrical Cost Engineering','Life-cycle · IEC 60300-3-3'],['🕸️','Electrical Network Calculations','IEC 60909 · IEEE 399'],['🌱','Energy Engineering','ISO 50001 · IEC 60364-8-1'],['🧮','Miscellaneous Engineering Calculations','Various']];
 function goMod(id){document.querySelectorAll('.sec').forEach(e=>e.classList.remove('on'));$$(id).classList.add('on');scrollTo(0,0)}
-$$('hub').innerHTML=MODS.map((m,i)=>'<div class="card mod'+(m[3]?' live':'')+'" onclick="'+(m[3]?"goMod('"+m[3]+"')":"toast('"+m[1].replace(/[&']/g,'')+" is planned')")+'" style="animation-delay:'+i*35+'ms"><div class="mi">'+m[0]+'</div><b style="font-size:14px">'+m[1]+'</b><div class="mut" style="font-size:12px;margin:4px 0 8px">'+m[2]+'</div><span class="chip'+(m[3]?' live':'')+'">'+(m[3]?'● Live':'Planned')+'</span></div>').join('');
+$$('hub').innerHTML=MODS.map((m,i)=>'<div class="card mod'+(m[3]?' live':'')+'" onclick="'+(m[3]?"goMod('"+m[3]+"')":"toast('"+m[1].replace(/[&']/g,'')+" is planned')")+'" style="animation-delay:'+i*35+'ms"><div class="mi">'+m[0]+'</div><b style="font-size:18px">'+m[1]+'</b><div class="mut" style="font-size:12px;margin:4px 0 8px">'+m[2]+'</div><span class="chip'+(m[3]?' live':'')+'">'+(m[3]?'● Live':'Planned')+'</span></div>').join('');
 const TR=[100,160,200,250,315,400,500,630,800,1000,1250,1600,2000,2500,3150,4000,5000,6300,8000,10000];
 function tfCalc(){const g=i=>parseFloat($$(i).value)||0,kw=g('tf_kw'),pf=g('tf_pf')||.9,gr=g('tf_gr'),amb=g('tf_amb'),hv=g('tf_hv')||11,lv=(g('tf_lv')||415)/1000,z=g('tf_z')||6,ss=g('tf_ss');
 const kva0=kw/pf,req=kva0*(1+gr/100),der=amb>30?Math.max(.5,1-(amb-30)*.01):1,pick=TR.find(r=>r*der>=req)||TR[TR.length-1],cap=pick*der,ld=req/cap*100,ld0=kva0/cap*100;
